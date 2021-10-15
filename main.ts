@@ -75,6 +75,12 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, l
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
     if (controller.up.isPressed()) {
+        for (let 値 of sprites.allOfKind(SpriteKind.Enemy)) {
+            値.destroy()
+        }
+        for (let 値 of sprites.allOfKind(SpriteKind.Item)) {
+            値.destroy()
+        }
         stage += 1
         StageSet()
     }
@@ -646,6 +652,8 @@ function StageSet () {
         tiles.setTilemap(tilemap`レベル8`)
         tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 8))
         scene.cameraFollowSprite(mySprite)
+        EnemySet()
+        ItemSet()
     } else {
         scene.setBackgroundImage(img`
             1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
