@@ -790,6 +790,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
         tiles.setWallAt(tiles.getTileLocation(5, 6), false)
         tiles.setWallAt(tiles.getTileLocation(26, 6), false)
         stage += 1
+        StageSet()
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
