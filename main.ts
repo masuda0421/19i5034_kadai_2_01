@@ -69,6 +69,32 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function BGM14 () {
+    music.playTone(147, music.beat(BeatFraction.Eighth))
+    music.playTone(147, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(147, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(147, music.beat(BeatFraction.Eighth))
+    music.playTone(147, music.beat(BeatFraction.Quarter))
+    music.playTone(196, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(196, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+}
+function BGM12 () {
+    music.playTone(370, music.beat(BeatFraction.Eighth))
+    music.playTone(370, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(370, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(370, music.beat(BeatFraction.Eighth))
+    music.playTone(370, music.beat(BeatFraction.Quarter))
+    music.playTone(494, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+}
 // ゴール！
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
     game.over(true)
@@ -77,6 +103,19 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     mySprite.vy = -200
 })
+function BGM11 () {
+    music.playTone(659, music.beat(BeatFraction.Eighth))
+    music.playTone(659, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(659, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(523, music.beat(BeatFraction.Eighth))
+    music.playTone(659, music.beat(BeatFraction.Quarter))
+    music.playTone(784, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(392, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+}
 // 土管2に入るときの処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
     if (controller.up.isPressed()) {
@@ -342,6 +381,16 @@ function ItemSet () {
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
+function BGM13 () {
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(392, music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+}
 // 敵！
 function EnemySet () {
     for (let 値 of tiles.getTilesByType(sprites.castle.tileGrass1)) {
@@ -1198,3 +1247,19 @@ info.setScore(0)
 info.setLife(3)
 stage = 0
 StageSet()
+forever(function () {
+    music.setTempo(50)
+    BGM12()
+})
+forever(function () {
+    music.setTempo(50)
+    BGM11()
+})
+forever(function () {
+    music.setTempo(50)
+    BGM13()
+})
+forever(function () {
+    music.setTempo(50)
+    BGM14()
+})
