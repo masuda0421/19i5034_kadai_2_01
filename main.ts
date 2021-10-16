@@ -81,6 +81,28 @@ function BGM14 () {
     music.rest(music.beat(BeatFraction.Quarter))
     music.playTone(196, music.beat(BeatFraction.Quarter))
     music.rest(music.beat(BeatFraction.Quarter))
+    for (let index = 0; index < 4; index++) {
+        music.playTone(196, music.beat(BeatFraction.Triplet))
+        music.playTone(165, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Quarter))
+        music.playTone(131, music.beat(BeatFraction.Quarter))
+        music.playTone(131, music.beat(BeatFraction.Eighth))
+        music.playTone(175, music.beat(BeatFraction.Quarter))
+        music.playTone(196, music.beat(BeatFraction.Quarter))
+        music.playTone(185, music.beat(BeatFraction.Eighth))
+        music.playTone(175, music.beat(BeatFraction.Quarter))
+        music.playTone(165, music.beat(BeatFraction.Sixteenth))
+        music.playTone(262, music.beat(BeatFraction.Sixteenth))
+        music.playTone(330, music.beat(BeatFraction.Sixteenth))
+        music.playTone(349, music.beat(BeatFraction.Quarter))
+        music.playTone(294, music.beat(BeatFraction.Eighth))
+        music.playTone(330, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Eighth))
+        music.playTone(262, music.beat(BeatFraction.Quarter))
+        music.playTone(220, music.beat(BeatFraction.Eighth))
+        music.playTone(247, music.beat(BeatFraction.Eighth))
+        music.playTone(185, music.beat(BeatFraction.Triplet))
+    }
 }
 function BGM12 () {
     music.playTone(370, music.beat(BeatFraction.Eighth))
@@ -94,6 +116,28 @@ function BGM12 () {
     music.rest(music.beat(BeatFraction.Quarter))
     music.rest(music.beat(BeatFraction.Quarter))
     music.rest(music.beat(BeatFraction.Quarter))
+    for (let index = 0; index < 4; index++) {
+        music.playTone(330, music.beat(BeatFraction.Triplet))
+        music.playTone(330, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Quarter))
+        music.playTone(262, music.beat(BeatFraction.Quarter))
+        music.playTone(262, music.beat(BeatFraction.Eighth))
+        music.playTone(262, music.beat(BeatFraction.Quarter))
+        music.playTone(294, music.beat(BeatFraction.Quarter))
+        music.playTone(277, music.beat(BeatFraction.Eighth))
+        music.playTone(262, music.beat(BeatFraction.Quarter))
+        music.playTone(262, music.beat(BeatFraction.Sixteenth))
+        music.playTone(392, music.beat(BeatFraction.Sixteenth))
+        music.playTone(494, music.beat(BeatFraction.Sixteenth))
+        music.playTone(523, music.beat(BeatFraction.Quarter))
+        music.playTone(440, music.beat(BeatFraction.Eighth))
+        music.playTone(494, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Eighth))
+        music.playTone(440, music.beat(BeatFraction.Quarter))
+        music.playTone(330, music.beat(BeatFraction.Eighth))
+        music.playTone(349, music.beat(BeatFraction.Eighth))
+        music.playTone(277, music.beat(BeatFraction.Triplet))
+    }
 }
 // ゴール！
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
@@ -115,6 +159,30 @@ function BGM11 () {
     music.rest(music.beat(BeatFraction.Quarter))
     music.playTone(392, music.beat(BeatFraction.Quarter))
     music.rest(music.beat(BeatFraction.Quarter))
+    for (let index = 0; index < 4; index++) {
+        music.playTone(523, music.beat(BeatFraction.Triplet))
+        music.playTone(392, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Quarter))
+        music.playTone(330, music.beat(BeatFraction.Quarter))
+        music.playTone(330, music.beat(BeatFraction.Eighth))
+        music.playTone(440, music.beat(BeatFraction.Quarter))
+        music.playTone(494, music.beat(BeatFraction.Quarter))
+        music.playTone(466, music.beat(BeatFraction.Eighth))
+        music.playTone(440, music.beat(BeatFraction.Quarter))
+        music.setTempo(25)
+        music.playTone(392, music.beat(BeatFraction.Sixteenth))
+        music.playTone(659, music.beat(BeatFraction.Sixteenth))
+        music.playTone(784, music.beat(BeatFraction.Sixteenth))
+        music.setTempo(50)
+        music.playTone(880, music.beat(BeatFraction.Quarter))
+        music.playTone(698, music.beat(BeatFraction.Eighth))
+        music.playTone(784, music.beat(BeatFraction.Eighth))
+        music.rest(music.beat(BeatFraction.Eighth))
+        music.playTone(659, music.beat(BeatFraction.Quarter))
+        music.playTone(523, music.beat(BeatFraction.Eighth))
+        music.playTone(587, music.beat(BeatFraction.Eighth))
+        music.playTone(494, music.beat(BeatFraction.Triplet))
+    }
 }
 // 土管2に入るときの処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
@@ -1249,15 +1317,14 @@ stage = 0
 StageSet()
 forever(function () {
     music.setTempo(50)
-    BGM12()
-})
-forever(function () {
-    music.setTempo(50)
     BGM11()
 })
 forever(function () {
     music.setTempo(50)
-    BGM13()
+    BGM12()
+})
+forever(function () {
+	
 })
 forever(function () {
     music.setTempo(50)
