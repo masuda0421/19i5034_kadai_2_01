@@ -1,7 +1,9 @@
 namespace SpriteKind {
     export const Item = SpriteKind.create()
     export const block1 = SpriteKind.create()
+    export const fire = SpriteKind.create()
 }
+// コインに当たった時の処理
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Item, function (sprite, otherSprite) {
     otherSprite.destroy(effects.disintegrate, 500)
     info.changeScoreBy(10)
@@ -67,18 +69,24 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+// ゴール！
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
     game.over(true)
 })
+// ホッピング台でジャンプ
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     mySprite.vy = -200
 })
+// 土管2に入るときの処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
     if (controller.up.isPressed()) {
         for (let 値 of sprites.allOfKind(SpriteKind.Enemy)) {
             値.destroy()
         }
         for (let 値 of sprites.allOfKind(SpriteKind.Item)) {
+            値.destroy()
+        }
+        for (let 値 of sprites.allOfKind(SpriteKind.fire)) {
             値.destroy()
         }
         stage += 1
@@ -89,6 +97,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, 
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
+// 火の球に当たった時の処理
+sprites.onOverlap(SpriteKind.Player, SpriteKind.fire, function (sprite, otherSprite) {
+    music.bigCrash.play()
+    info.changeLifeBy(-1)
+    pause(1000)
+})
+// 壊せるブロックの処理
 sprites.onOverlap(SpriteKind.Player, SpriteKind.block1, function (sprite, otherSprite) {
     if (mySprite.overlapsWith(block1)) {
         tiles.setWallAt(tiles.getTileLocation(11, 2), false)
@@ -103,6 +118,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.block1, function (sprite, otherS
     music.smallCrash.play()
     info.changeScoreBy(5)
 })
+// 壊せるブロック
 function Block1 () {
     block1 = sprites.create(img`
         . . 5 5 5 5 5 d e e e e e e e . 
@@ -245,9 +261,40 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+// コイン
 function ItemSet () {
     for (let 値 of tiles.getTilesByType(sprites.dungeon.collectibleRedCrystal)) {
         coin = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.Item)
+        animation.runImageAnimation(
+        coin,
+        [img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `,img`
+            . . b b b . . . 
+            . b 5 5 5 b . . 
+            b 5 d 3 d 5 b . 
+            b 5 3 5 1 5 b . 
+            c 5 3 5 1 d c . 
+            c 5 d 1 d d c . 
+            . f d d d f . . 
+            . . f f f . . . 
+            `,img`
             . . . b b . . . 
             . . b 5 5 b . . 
             . b 5 d 1 5 b . 
@@ -256,7 +303,37 @@ function ItemSet () {
             . c 5 1 d d c . 
             . . f d d f . . 
             . . . f f . . . 
-            `, SpriteKind.Item)
+            `,img`
+            . . . b b . . . 
+            . . b 5 5 b . . 
+            . . b 1 1 b . . 
+            . . b 5 5 b . . 
+            . . b d d b . . 
+            . . c d d c . . 
+            . . c 3 3 c . . 
+            . . . f f . . . 
+            `,img`
+            . . . b b . . . 
+            . . b 5 5 b . . 
+            . b 5 1 d 5 b . 
+            . b 5 1 3 5 b . 
+            . c d 1 3 5 c . 
+            . c d d 1 5 c . 
+            . . f d d f . . 
+            . . . f f . . . 
+            `,img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `],
+        100,
+        true
+        )
         tiles.placeOnTile(coin, 値)
         tiles.setTileAt(値, assets.tile`transparency16`)
     }
@@ -265,6 +342,7 @@ function ItemSet () {
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
+// 敵！
 function EnemySet () {
     for (let 値 of tiles.getTilesByType(sprites.castle.tileGrass1)) {
         Enemy1 = sprites.create(img`
@@ -511,9 +589,43 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.B.onEvent(ControllerButtonEvent.Released, function () {
     controller.moveSprite(mySprite, 70, 0)
 })
+// 火の球
+function Dame () {
+    for (let 値 of tiles.getTilesByType(assets.tile`myTile20`)) {
+        fire1 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 5 4 4 . . . . . . 
+            . . . . . . 5 5 4 5 5 5 5 4 . . 
+            . . . . . 5 5 4 4 4 4 4 2 4 . . 
+            . . . . 5 5 4 2 2 2 8 5 4 5 . . 
+            . . . . 5 4 2 2 2 8 2 2 4 4 . . 
+            . . . 5 5 4 2 8 8 2 2 5 4 4 5 . 
+            . . 5 5 4 4 2 8 2 4 2 4 4 5 . . 
+            . . 5 5 4 2 2 8 8 2 2 4 5 5 . . 
+            . . . 5 4 4 2 2 2 4 4 5 5 . . . 
+            . . . . 5 4 2 4 4 4 4 5 . . . . 
+            . . . . . 4 2 2 4 5 5 . . . . . 
+            . . . . . 4 2 2 2 5 . . . . . . 
+            . . . . . 4 4 4 5 5 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.fire)
+        tiles.placeOnTile(fire1, 値)
+        tiles.setTileAt(値, assets.tile`transparency16`)
+        fire1.startEffect(effects.fire)
+        animation.runMovementAnimation(
+        fire1,
+        "c 0 -120 0 120 0 0",
+        2000,
+        true
+        )
+    }
+}
+// マグマに落ちた時の処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
-    game.over(false)
+    game.over(false, effects.melt)
 })
+// ステージについて
 function StageSet () {
     if (stage == 0) {
         scene.setBackgroundImage(img`
@@ -664,6 +776,7 @@ function StageSet () {
         EnemySet()
         Block1()
         ItemSet()
+        Dame()
     } else if (stage == 1) {
         scene.setBackgroundImage(img`
             cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -792,6 +905,7 @@ function StageSet () {
         scene.cameraFollowSprite(mySprite)
         EnemySet()
         ItemSet()
+        Dame()
     } else {
         scene.setBackgroundImage(img`
             1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
@@ -920,6 +1034,7 @@ function StageSet () {
         scene.cameraFollowSprite(mySprite)
     }
 }
+// 土管1に入るときの処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     if (controller.down.isPressed()) {
         for (let 値 of sprites.allOfKind(SpriteKind.Enemy)) {
@@ -931,6 +1046,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
         for (let 値 of sprites.allOfKind(SpriteKind.block1)) {
             値.destroy()
         }
+        for (let 値 of sprites.allOfKind(SpriteKind.fire)) {
+            値.destroy()
+        }
         tiles.setWallAt(tiles.getTileLocation(11, 2), false)
         tiles.setWallAt(tiles.getTileLocation(12, 2), false)
         tiles.setWallAt(tiles.getTileLocation(5, 6), false)
@@ -939,6 +1057,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
         StageSet()
     }
 })
+// 敵に当たった時の処理
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (mySprite.vy > 0) {
         otherSprite.destroy(effects.disintegrate, 200)
@@ -1065,6 +1184,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     }
 })
+let fire1: Sprite = null
 let Enemy2: Sprite = null
 let Enemy1: Sprite = null
 let coin: Sprite = null
