@@ -743,7 +743,62 @@ function Dame () {
     }
 }
 function BGM21 () {
-	
+    music.playTone(262, music.beat(BeatFraction.Sixteenth))
+    music.playTone(523, music.beat(BeatFraction.Sixteenth))
+    music.playTone(220, music.beat(BeatFraction.Sixteenth))
+    music.playTone(440, music.beat(BeatFraction.Sixteenth))
+    music.playTone(233, music.beat(BeatFraction.Eighth))
+    music.playTone(466, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(262, music.beat(BeatFraction.Sixteenth))
+    music.playTone(523, music.beat(BeatFraction.Sixteenth))
+    music.playTone(220, music.beat(BeatFraction.Sixteenth))
+    music.playTone(440, music.beat(BeatFraction.Sixteenth))
+    music.playTone(233, music.beat(BeatFraction.Eighth))
+    music.playTone(466, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(175, music.beat(BeatFraction.Sixteenth))
+    music.playTone(349, music.beat(BeatFraction.Sixteenth))
+    music.playTone(147, music.beat(BeatFraction.Sixteenth))
+    music.playTone(294, music.beat(BeatFraction.Sixteenth))
+    music.playTone(156, music.beat(BeatFraction.Eighth))
+    music.playTone(311, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.playTone(175, music.beat(BeatFraction.Sixteenth))
+    music.playTone(349, music.beat(BeatFraction.Sixteenth))
+    music.playTone(147, music.beat(BeatFraction.Sixteenth))
+    music.playTone(294, music.beat(BeatFraction.Sixteenth))
+    music.playTone(156, music.beat(BeatFraction.Eighth))
+    music.playTone(311, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Eighth))
+    music.playTone(311, music.beat(BeatFraction.Eighth))
+    music.playTone(294, music.beat(BeatFraction.Eighth))
+    music.playTone(277, music.beat(BeatFraction.Eighth))
+    music.playTone(262, music.beat(BeatFraction.Eighth))
+    music.playTone(311, music.beat(BeatFraction.Eighth))
+    music.playTone(294, music.beat(BeatFraction.Eighth))
+    music.playTone(208, music.beat(BeatFraction.Eighth))
+    music.playTone(196, music.beat(BeatFraction.Eighth))
+    music.playTone(277, music.beat(BeatFraction.Eighth))
+    music.playTone(262, music.beat(BeatFraction.Eighth))
+    music.playTone(370, music.beat(BeatFraction.Eighth))
+    music.playTone(349, music.beat(BeatFraction.Eighth))
+    music.playTone(330, music.beat(BeatFraction.Eighth))
+    music.playTone(466, music.beat(BeatFraction.Eighth))
+    music.playTone(440, music.beat(BeatFraction.Eighth))
+    music.playTone(415, music.beat(BeatFraction.Eighth))
+    music.playTone(311, music.beat(BeatFraction.Eighth))
+    music.playTone(247, music.beat(BeatFraction.Eighth))
+    music.playTone(233, music.beat(BeatFraction.Eighth))
+    music.playTone(220, music.beat(BeatFraction.Eighth))
+    music.playTone(208, music.beat(BeatFraction.Eighth))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
 }
 // マグマに落ちた時の処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, location) {
@@ -1346,26 +1401,11 @@ info.setLife(3)
 stage = 0
 StageSet()
 forever(function () {
-    if (stage == 0 || stage == 2) {
-        music.setTempo(50)
-        BGM11()
-    } else {
-        music.baDing.play()
-    }
+	
 })
 forever(function () {
-    if (stage == 0 || stage == 2) {
-        music.setTempo(50)
-        BGM12()
-    } else {
-        music.baDing.play()
-    }
+	
 })
 forever(function () {
-    if (stage == 0 || stage == 2) {
-        music.setTempo(50)
-        BGM13()
-    } else {
-        music.baDing.play()
-    }
+	
 })
