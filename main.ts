@@ -3,6 +3,23 @@ namespace SpriteKind {
     export const block1 = SpriteKind.create()
     export const fire = SpriteKind.create()
 }
+/**
+ * ・音が足りなかったので、数値入力し自分で作った。
+ * 
+ * ・ばねでより高く飛べるようにした。
+ * 
+ * ・火の球が浮かぶようにした。
+ * 
+ * ・コインにアニメーションをつけた。
+ * 
+ * ・土管に入ると別ステージに行ける
+ * 
+ * ・別ステージでは違うBGMが流れるようにした。
+ * 
+ * ・BGMはマリオの地上と地下を借りました。
+ * 
+ * 敵にアニメーションをつけたものの、壁に当たった際に向きを変えることができなかった。どうやってやるの？どうしてもムーンウォークします。なぜ？
+ */
 // コインに当たった時の処理
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Item, function (sprite, otherSprite) {
     otherSprite.destroy(effects.disintegrate, 500)
@@ -140,6 +157,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, 
             値.destroy()
         }
         stage += 1
+        music.stopAllSounds()
         StageSet()
     }
 })
@@ -1287,6 +1305,29 @@ function StageSet () {
         scene.cameraFollowSprite(mySprite)
     }
 }
+function BGM23 () {
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+    music.rest(music.beat(BeatFraction.Quarter))
+}
 // 土管1に入るときの処理
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     if (controller.down.isPressed()) {
@@ -1475,15 +1516,27 @@ info.setLife(3)
 stage = 0
 StageSet()
 forever(function () {
-	
+    if (stage == 0 || stage == 2) {
+        music.setTempo(50)
+        BGM11()
+    } else {
+        music.setTempo(25)
+        BGM21()
+    }
 })
 forever(function () {
-    music.setTempo(25)
-    BGM21()
+    if (stage == 0 || stage == 2) {
+        music.setTempo(50)
+        BGM12()
+    } else {
+        BGM22()
+    }
 })
 forever(function () {
-	
-})
-forever(function () {
-    BGM22()
+    if (stage == 0 || stage == 2) {
+        music.setTempo(50)
+        BGM13()
+    } else {
+        BGM22()
+    }
 })
